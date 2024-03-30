@@ -1,2 +1,2 @@
-# BloodstarToImage
-Make a simple image from bloodstar json
+Attempt at a website that makes an image from a [bloodstar.xyz](https://www.bloodstar.xyz/) json.
+
