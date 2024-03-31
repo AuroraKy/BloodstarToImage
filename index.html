@@ -80,9 +80,13 @@
             <div class="col-auto">
                 <input type="button" value="Go" id="button" class="btn btn-outline-primary"> 
             </div>
+            <div class="col-auto">
+                <input type="button" value="Download" id="download" class="btn btn-outline-secondary"> 
+            </div>
         </div>
     </div>
     <hr>
+    <div id="page">
     <div class="container bg-light text-black">
         <h2 class="mb-0"><span id="title">Homebrew example</span><span class="fs-4  text-secondary"> by </span><span id="author">Aurora Aquir</span></h1>
         <hr class="m-0">
@@ -99,7 +103,6 @@
         <div id="fabled"></div>
         <h5 class="geologica-title text-success">Travelers</h2>
         <div id="traveler"></div>
-        <br>
         <div class="row row-cols-2 invisible" id="template">
             <div class="col card border-light bg-transparent mb-1">
               <div class="row g-0">
@@ -133,7 +136,8 @@
             </div>
         </div>
     </div>
-
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image-more/3.3.0/dom-to-image-more.min.js" integrity="sha512-4AS0kbwZGFUCNG5wkLfomMUZiPcVR+1pYPTXXGQixUe/w99b5A/EusMZsTv3UN6SqaACgBin+85fFD5mUUeeEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript">
         var REQUEST_LOCK = false;
         //https://stackoverflow.com/questions/12460378/how-to-get-json-from-url-in-javascript
@@ -202,7 +206,7 @@
 
             let clone = template.cloneNode(true);
             clone.classList.remove("invisible");
-            clone.removeAttribute("invisible");
+            clone.removeAttribute("id");
             let first = clone.children[0].children[0];
             let second = clone.children[1].children[0];
 
@@ -226,6 +230,19 @@
           handleURL(document.getElementById("url").value);
         }
 
+
+        document.getElementById("download").onclick = () => {
+          var node = document.getElementById('page');
+         
+          domtoimage
+              .toPng(node, {filter: (node) => node.id != "template"})
+              .then(function (dataUrl) {
+                  var link = document.createElement('a');
+                  link.download = (document.getElementById("title").innerText ?? "homebrew")+".png";
+                  link.href = dataUrl;
+                  link.click();
+              })
+        }
     </script>
 </body>
 </html>
